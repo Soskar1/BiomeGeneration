@@ -514,8 +514,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 63687d58b5b2cc642a95720ccf5e15f0, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_width: 16
-  m_height: 16
+  m_width: 256
+  m_height: 256
   m_xOffset: 0
   m_yOffset: 0
   m_scale: 1

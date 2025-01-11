@@ -10,14 +10,29 @@ public class NoiseVisualization : MonoBehaviour
     [SerializeField] private float m_scale;
 
     private RawImage m_image;
+    private Noise m_noise;
 
     private void Awake() => m_image = GetComponent<RawImage>();
+
+    private void Start() => m_noise = new Noise();
     
-    [ContextMenu("GenerateNoise")]
+    [ContextMenu("CreatePerlinNoiseSample")]
     public void GenerateNoise()
     {
-        float[] noise = new Noise().CreatePerlinNoise(m_width, m_height, m_scale, m_xOffset, m_yOffset);
+        float[] noise = m_noise.CreateNoiseSample(Mathf.PerlinNoise, m_width, m_height, m_scale, m_xOffset, m_yOffset);
+        Visualize(noise);
+    }
 
+    [ContextMenu("OctavePerlinNoise")]
+    public void GenerateOctavePerlinNoise()
+    {
+        float OctavePerlinNoise(float x, float y) => m_noise.OctavePerlinNoise(x, y, 6, 0.5f);
+        float[] noise = m_noise.CreateNoiseSample(OctavePerlinNoise, m_width, m_height, m_scale, m_xOffset, m_yOffset);
+        Visualize(noise);
+    }
+
+    private void Visualize(in float[] noise)
+    {
         Texture2D noiseTexture = new Texture2D(m_width, m_height);
         Color[] pixels = new Color[m_width * m_height];
 
