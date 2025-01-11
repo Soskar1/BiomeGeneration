@@ -1,12 +1,13 @@
 using UnityEngine;
-using System.Diagnostics;
-using Debug = UnityEngine.Debug;
 using UnityEngine.UI;
 
 public class NoiseVisualization : MonoBehaviour
 {
     [SerializeField] private int m_width;
     [SerializeField] private int m_height;
+    [SerializeField] private int m_xOffset;
+    [SerializeField] private int m_yOffset;
+    [SerializeField] private float m_scale;
 
     private RawImage m_image;
 
@@ -15,10 +16,7 @@ public class NoiseVisualization : MonoBehaviour
     [ContextMenu("GenerateNoise")]
     public void GenerateNoise()
     {
-        Stopwatch watch = Stopwatch.StartNew();
-        float[] noise = new Noise().CreatePerlinNoise(m_width, m_height);
-        watch.Stop();
-        Debug.Log($"{watch.ElapsedMilliseconds}ms");
+        float[] noise = new Noise().CreatePerlinNoise(m_width, m_height, m_scale, m_xOffset, m_yOffset);
 
         Texture2D noiseTexture = new Texture2D(m_width, m_height);
         Color[] pixels = new Color[m_width * m_height];
