@@ -18,13 +18,13 @@ public class Noise
         return CalculateNoise();
     }
 
-    public float[] CreateNoiseSample(Func<float, float, float> noiseFunction, in int width, in int height, in float scale = 1.0f, in int xOffset = 0, in int yOffset = 0)
+    public float[] CreateOctavePerlinNoiseSample(in int width, in int height, in int octaves, in float persistance, in float scale = 1.0f, in int xOffset = 0, in int yOffset = 0)
     {
         float[] noise = new float[width * height];
 
         for (float y = 0; y < height; ++y)
             for (float x = 0; x < width; ++x)
-                noise[(int)y * width + (int)x] = noiseFunction(xOffset + x / width * scale, yOffset + y / height * scale);
+                noise[(int)y * width + (int)x] = OctavePerlinNoise(xOffset + x / width * scale, yOffset + y / height * scale, octaves, persistance);
 
         return noise;
     }

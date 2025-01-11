@@ -8,6 +8,8 @@ public class NoiseVisualization : MonoBehaviour
     [SerializeField] private int m_xOffset;
     [SerializeField] private int m_yOffset;
     [SerializeField] private float m_scale;
+    [SerializeField] private int m_octaves;
+    [SerializeField] private float m_persistance;
 
     private RawImage m_image;
     private Noise m_noise;
@@ -16,18 +18,10 @@ public class NoiseVisualization : MonoBehaviour
 
     private void Start() => m_noise = new Noise();
     
-    [ContextMenu("CreatePerlinNoiseSample")]
-    public void GenerateNoise()
-    {
-        float[] noise = m_noise.CreateNoiseSample(Mathf.PerlinNoise, m_width, m_height, m_scale, m_xOffset, m_yOffset);
-        Visualize(noise);
-    }
-
     [ContextMenu("OctavePerlinNoise")]
     public void GenerateOctavePerlinNoise()
     {
-        float OctavePerlinNoise(float x, float y) => m_noise.OctavePerlinNoise(x, y, 6, 0.5f);
-        float[] noise = m_noise.CreateNoiseSample(OctavePerlinNoise, m_width, m_height, m_scale, m_xOffset, m_yOffset);
+        float[] noise = m_noise.CreateOctavePerlinNoiseSample(m_width, m_height, m_octaves, m_persistance, m_scale, m_xOffset, m_yOffset);
         Visualize(noise);
     }
 

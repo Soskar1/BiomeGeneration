@@ -519,6 +519,8 @@ MonoBehaviour:
   m_xOffset: 0
   m_yOffset: 0
   m_scale: 1
+  m_octaves: 6
+  m_persistance: 0.5
 --- !u!114 &802645440
 MonoBehaviour:
   m_ObjectHideFlags: 0
