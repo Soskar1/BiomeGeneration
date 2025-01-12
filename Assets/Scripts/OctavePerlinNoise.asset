@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ab1ba24b8feebd94981c226fdc529302, type: 3}
   m_Name: OctavePerlinNoise
   m_EditorClassIdentifier: 
-  scale: 1
+  scale: 0.5
   octaves: 6
-  persistance: 0.5
+  persistance: 0.25
   startFrequency: 1
   startAmplitude: 1

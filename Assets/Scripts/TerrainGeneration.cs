@@ -7,19 +7,10 @@ namespace Core.BiomeGeneration
         [SerializeField] private int m_chunkSize;
         [SerializeField] private int m_maxHeight;
         [SerializeField] private NoiseData m_noiseData;
-        private Mesh m_mesh;
-        private MeshFilter m_filter;
-
-        private void Awake()
-        {
-            m_filter = GetComponent<MeshFilter>();
-            m_mesh = new Mesh();
-        }
+        [SerializeField] private GameObject m_chunkPrefab;
 
         private void Start()
         {
-            m_filter.mesh = m_mesh;
-
             GenerateTerrain(new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z));
         }
 
@@ -27,10 +18,16 @@ namespace Core.BiomeGeneration
         {
             ChunkGeneration chunkGeneration = new ChunkGeneration(m_noiseData);
             MeshData meshData = chunkGeneration.Generate(position, m_chunkSize, m_maxHeight);
+            
+            GameObject chunkInstance = Instantiate(m_chunkPrefab, position, Quaternion.identity);
+            chunkInstance.transform.parent = transform;
 
-            m_mesh.vertices = meshData.Vertices.ToArray();
-            m_mesh.triangles = meshData.Indices.ToArray();
-            m_mesh.RecalculateNormals();
+            Mesh mesh = new Mesh();
+            mesh.vertices = meshData.Vertices.ToArray();
+            mesh.triangles = meshData.Indices.ToArray();
+            mesh.RecalculateNormals();
+
+            chunkInstance.GetComponent<MeshFilter>().mesh = mesh;
         }
     }
 }

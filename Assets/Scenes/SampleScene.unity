@@ -799,6 +799,7 @@ MonoBehaviour:
   m_chunkSize: 16
   m_maxHeight: 128
   m_noiseData: {fileID: 11400000, guid: 47f139267ae20be4f97fb7c0f1b6e8a8, type: 2}
+  m_chunkPrefab: {fileID: 3610756403518132208, guid: a53a63fecd1d2cf4da6b4d7bdcafb4bc, type: 3}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
