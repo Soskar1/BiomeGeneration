@@ -9,21 +9,19 @@ namespace Core.BiomeGeneration
         [SerializeField] private int m_height;
         [SerializeField] private int m_xOffset;
         [SerializeField] private int m_yOffset;
-        [SerializeField] private float m_scale;
-        [SerializeField] private int m_octaves;
-        [SerializeField] private float m_persistance;
+        [SerializeField] private NoiseData m_noiseData;
 
         private RawImage m_image;
         private Noise m_noise;
 
         private void Awake() => m_image = GetComponent<RawImage>();
 
-        private void Start() => m_noise = new Noise();
+        private void Start() => m_noise = new Noise(m_noiseData);
 
         [ContextMenu("OctavePerlinNoise")]
         public void GenerateOctavePerlinNoise()
         {
-            float[] noise = m_noise.CreateOctavePerlinNoiseSample(m_width, m_height, m_octaves, m_persistance, m_scale, m_xOffset, m_yOffset);
+            float[] noise = m_noise.CreateOctavePerlinNoiseSample(m_width, m_height, m_xOffset, m_yOffset);
             Visualize(noise);
         }
 

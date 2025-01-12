@@ -518,9 +518,7 @@ MonoBehaviour:
   m_height: 256
   m_xOffset: 0
   m_yOffset: 0
-  m_scale: 1
-  m_octaves: 6
-  m_persistance: 0.5
+  m_noiseData: {fileID: 0}
 --- !u!114 &802645440
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -756,7 +754,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 0}
+  - {fileID: 15303, guid: 0000000000000000f000000000000000, type: 0}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -800,6 +798,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_chunkSize: 16
   m_maxHeight: 128
+  m_noiseData: {fileID: 11400000, guid: 47f139267ae20be4f97fb7c0f1b6e8a8, type: 2}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

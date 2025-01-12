@@ -1,5 +1,6 @@
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 namespace Core.BiomeGeneration
 {
@@ -14,18 +15,12 @@ namespace Core.BiomeGeneration
             Indices = new List<int>();
         }
 
-        public void AddQuad(in Vector3 position)
+        public void AddQuad(in Vector3[] quadVertices)
         {
-            AddQuadVertices(position);
-            AddQuadTriangles();
-        }
+            foreach (var vertex in quadVertices)
+                Vertices.Add(vertex);
 
-        private void AddQuadVertices(in Vector3 position)
-        {
-            Vertices.Add(position);
-            Vertices.Add(new Vector3(position.x, position.y, position.z + 1));
-            Vertices.Add(new Vector3(position.x + 1, position.y, position.z + 1));
-            Vertices.Add(new Vector3(position.x + 1, position.y, position.z));
+            AddQuadTriangles();
         }
 
         private void AddQuadTriangles()
