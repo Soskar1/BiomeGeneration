@@ -1,47 +1,50 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class NoiseVisualization : MonoBehaviour
+namespace Core.BiomeGeneration
 {
-    [SerializeField] private int m_width;
-    [SerializeField] private int m_height;
-    [SerializeField] private int m_xOffset;
-    [SerializeField] private int m_yOffset;
-    [SerializeField] private float m_scale;
-    [SerializeField] private int m_octaves;
-    [SerializeField] private float m_persistance;
-
-    private RawImage m_image;
-    private Noise m_noise;
-
-    private void Awake() => m_image = GetComponent<RawImage>();
-
-    private void Start() => m_noise = new Noise();
-    
-    [ContextMenu("OctavePerlinNoise")]
-    public void GenerateOctavePerlinNoise()
+    public class NoiseVisualization : MonoBehaviour
     {
-        float[] noise = m_noise.CreateOctavePerlinNoiseSample(m_width, m_height, m_octaves, m_persistance, m_scale, m_xOffset, m_yOffset);
-        Visualize(noise);
-    }
+        [SerializeField] private int m_width;
+        [SerializeField] private int m_height;
+        [SerializeField] private int m_xOffset;
+        [SerializeField] private int m_yOffset;
+        [SerializeField] private float m_scale;
+        [SerializeField] private int m_octaves;
+        [SerializeField] private float m_persistance;
 
-    private void Visualize(in float[] noise)
-    {
-        Texture2D noiseTexture = new Texture2D(m_width, m_height);
-        Color[] pixels = new Color[m_width * m_height];
+        private RawImage m_image;
+        private Noise m_noise;
 
-        for (int y = 0; y < m_height; ++y)
+        private void Awake() => m_image = GetComponent<RawImage>();
+
+        private void Start() => m_noise = new Noise();
+
+        [ContextMenu("OctavePerlinNoise")]
+        public void GenerateOctavePerlinNoise()
         {
-            for (int x = 0; x < m_width; ++x)
-            {
-                float noiseValue = noise[y * m_width + x];
-                pixels[y * m_width + x] = new Color(noiseValue, noiseValue, noiseValue);
-            }
+            float[] noise = m_noise.CreateOctavePerlinNoiseSample(m_width, m_height, m_octaves, m_persistance, m_scale, m_xOffset, m_yOffset);
+            Visualize(noise);
         }
 
-        noiseTexture.SetPixels(pixels);
-        noiseTexture.Apply();
-        m_image.material.mainTexture = noiseTexture;
-        m_image.texture = noiseTexture;
+        private void Visualize(in float[] noise)
+        {
+            Texture2D noiseTexture = new Texture2D(m_width, m_height);
+            Color[] pixels = new Color[m_width * m_height];
+
+            for (int y = 0; y < m_height; ++y)
+            {
+                for (int x = 0; x < m_width; ++x)
+                {
+                    float noiseValue = noise[y * m_width + x];
+                    pixels[y * m_width + x] = new Color(noiseValue, noiseValue, noiseValue);
+                }
+            }
+
+            noiseTexture.SetPixels(pixels);
+            noiseTexture.Apply();
+            m_image.material.mainTexture = noiseTexture;
+            m_image.texture = noiseTexture;
+        }
     }
 }

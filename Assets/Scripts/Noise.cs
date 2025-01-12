@@ -1,31 +1,34 @@
 using System;
 using UnityEngine;
 
-public class Noise
+namespace Core.BiomeGeneration
 {
-    public float OctavePerlinNoise(float x, float y, int octaves, float persistance)
+    public class Noise
     {
-        float CalculateNoise(in int octave = 0, in float frequency = 1, in float amplitude = 1, in float maxValue = 0, float total = 0)
+        public float OctavePerlinNoise(float x, float y, int octaves, float persistance)
         {
-            total += Mathf.PerlinNoise(x * frequency, y * frequency) * amplitude;
+            float CalculateNoise(in int octave = 0, in float frequency = 1, in float amplitude = 1, in float maxValue = 0, float total = 0)
+            {
+                total += Mathf.PerlinNoise(x * frequency, y * frequency) * amplitude;
 
-            if (octave < octaves)
-                return CalculateNoise(octave + 1, frequency * 2, amplitude * persistance, maxValue + amplitude, total);
+                if (octave < octaves)
+                    return CalculateNoise(octave + 1, frequency * 2, amplitude * persistance, maxValue + amplitude, total);
 
-            return total / maxValue;
+                return total / maxValue;
+            }
+
+            return CalculateNoise();
         }
 
-        return CalculateNoise();
-    }
+        public float[] CreateOctavePerlinNoiseSample(in int width, in int height, in int octaves, in float persistance, in float scale = 1.0f, in int xOffset = 0, in int yOffset = 0)
+        {
+            float[] noise = new float[width * height];
 
-    public float[] CreateOctavePerlinNoiseSample(in int width, in int height, in int octaves, in float persistance, in float scale = 1.0f, in int xOffset = 0, in int yOffset = 0)
-    {
-        float[] noise = new float[width * height];
+            for (float y = 0; y < height; ++y)
+                for (float x = 0; x < width; ++x)
+                    noise[(int)y * width + (int)x] = OctavePerlinNoise(xOffset + x / width * scale, yOffset + y / height * scale, octaves, persistance);
 
-        for (float y = 0; y < height; ++y)
-            for (float x = 0; x < width; ++x)
-                noise[(int)y * width + (int)x] = OctavePerlinNoise(xOffset + x / width * scale, yOffset + y / height * scale, octaves, persistance);
-
-        return noise;
+            return noise;
+        }
     }
 }
