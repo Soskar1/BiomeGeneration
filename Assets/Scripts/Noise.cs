@@ -4,7 +4,7 @@ namespace Core.BiomeGeneration
 {
     public class Noise
     {
-        private NoiseData m_noiseData;
+        private readonly NoiseData m_noiseData;
 
         public Noise(in NoiseData data) => m_noiseData = data;
 

@@ -1,33 +1,40 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Core.BiomeGeneration
 {
-    public class TerrainGeneration : MonoBehaviour
+    public class TerrainGeneration
     {
-        [SerializeField] private int m_chunkSize;
-        [SerializeField] private int m_maxHeight;
-        [SerializeField] private NoiseData m_noiseData;
-        [SerializeField] private GameObject m_chunkPrefab;
-
-        private void Start()
+        private readonly int m_chunkSize;
+        private readonly ChunkGeneration m_chunkGeneration;
+        
+        public TerrainGeneration(in int chunkSize, in int maxHeight, in NoiseData noiseData) 
         {
-            GenerateTerrain(new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z));
+            m_chunkSize = chunkSize;
+            m_chunkGeneration = new ChunkGeneration(chunkSize, maxHeight, noiseData);
         }
 
-        public void GenerateTerrain(in Vector3Int position)
+        public List<ChunkData> GenerateTerrain(in Vector3Int startPosition, in int distanceFromStart)
         {
-            ChunkGeneration chunkGeneration = new ChunkGeneration(m_noiseData);
-            MeshData meshData = chunkGeneration.Generate(position, m_chunkSize, m_maxHeight);
-            
-            GameObject chunkInstance = Instantiate(m_chunkPrefab, position, Quaternion.identity);
-            chunkInstance.transform.parent = transform;
+            List<ChunkData> meshDatas = new List<ChunkData>();
 
-            Mesh mesh = new Mesh();
-            mesh.vertices = meshData.Vertices.ToArray();
-            mesh.triangles = meshData.Indices.ToArray();
-            mesh.RecalculateNormals();
+            int xStart = startPosition.x - m_chunkSize * distanceFromStart / 2;
+            int xEnd = startPosition.x + m_chunkSize * distanceFromStart / 2;
 
-            chunkInstance.GetComponent<MeshFilter>().mesh = mesh;
+            int zStart = startPosition.z - m_chunkSize * distanceFromStart / 2;
+            int zEnd = startPosition.z + m_chunkSize * distanceFromStart / 2;
+
+            for (int x = xStart; x < xEnd; x += m_chunkSize)
+            {
+                for (int z = zStart; z < zEnd; z += m_chunkSize)
+                {
+                    Vector3Int worldPosition = new Vector3Int(x, startPosition.y, z);
+                    ChunkData chunkData = m_chunkGeneration.Generate(worldPosition);
+                    meshDatas.Add(chunkData);
+                }
+            }
+
+            return meshDatas;
         }
     }
 }

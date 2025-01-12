@@ -4,24 +4,31 @@ namespace Core.BiomeGeneration
 {
     public class ChunkGeneration
     {
-        private Noise m_noise;
+        private readonly int m_chunkSize;
+        private readonly int m_maxHeight;
+        private readonly Noise m_noise;
 
-        public ChunkGeneration(NoiseData noiseData) => m_noise = new Noise(noiseData);
+        public ChunkGeneration(in int chunkSize, in int maxHeight, in NoiseData noiseData)
+        {
+            m_noise = new Noise(noiseData);
+            m_chunkSize = chunkSize;
+            m_maxHeight = maxHeight;
+        }
 
-        public MeshData Generate(in Vector3Int position, int chunkSize, int maxHeight)
+        public ChunkData Generate(in Vector3Int position)
         {
             MeshData meshData = new MeshData();
-            float[] noise = m_noise.CreateOctavePerlinNoiseSample(chunkSize, chunkSize, position.x, position.z);
+            float[] noise = m_noise.CreateOctavePerlinNoiseSample(m_chunkSize, m_chunkSize, position.x, position.z);
 
             Vector3 CreateVertex(in int x, in int y)
             {
-                float height = noise[x * chunkSize + y] * maxHeight;
+                float height = noise[x * m_chunkSize + y] * m_maxHeight;
                 return new Vector3(x, height, y);
             }
 
-            for (int x = 0; x < chunkSize - 1; ++x)
+            for (int x = 0; x < m_chunkSize - 1; ++x)
             {
-                for (int y = 0; y < chunkSize - 1; ++y)
+                for (int y = 0; y < m_chunkSize - 1; ++y)
                 {
                     Vector3[] vertices = new Vector3[4]
                     {
@@ -35,7 +42,7 @@ namespace Core.BiomeGeneration
                 }
             }
 
-            return meshData;
+            return new ChunkData(meshData, position);
         }
     }
 }
