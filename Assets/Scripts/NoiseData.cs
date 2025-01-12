@@ -10,5 +10,7 @@ namespace Core.BiomeGeneration
         public float persistance;
         public float startFrequency;
         public float startAmplitude;
+        public float xOffset;
+        public float yOffset;
     }
 }

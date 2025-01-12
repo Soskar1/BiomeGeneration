@@ -12,7 +12,7 @@ namespace Core.BiomeGeneration
         {
             float CalculateNoise(in int octave = 0, in float frequency = 1, in float amplitude = 1, in float maxValue = 0, float total = 0)
             {
-                total += Mathf.PerlinNoise(x * frequency, y * frequency) * amplitude;
+                total += Mathf.PerlinNoise(x * frequency + m_noiseData.xOffset, y * frequency + m_noiseData.yOffset) * amplitude;
 
                 if (octave < m_noiseData.octaves)
                     return CalculateNoise(octave + 1, frequency * 2, amplitude * m_noiseData.persistance, maxValue + amplitude, total);

@@ -17,3 +17,5 @@ MonoBehaviour:
   persistance: 0.2
   startFrequency: 0.5
   startAmplitude: 1
+  xOffset: 54534
+  yOffset: 33548
