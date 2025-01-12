@@ -8,7 +8,7 @@ namespace Core.BiomeGeneration
 
         public Noise(in NoiseData data) => m_noiseData = data;
 
-        private float OctavePerlinNoise(float x, float y)
+        public float OctavePerlinNoise(float x, float y)
         {
             float CalculateNoise(in int octave = 0, in float frequency = 1, in float amplitude = 1, in float maxValue = 0, float total = 0)
             {
@@ -26,10 +26,12 @@ namespace Core.BiomeGeneration
         public float[] CreateOctavePerlinNoiseSample(in int width, in int height, in int xOffset = 0, in int yOffset = 0)
         {
             float[] noise = new float[width * height];
+            float xFixedOffset = (float)xOffset / (width - 1) * m_noiseData.scale;
+            float yFixedOffset = (float)yOffset / (height - 1) * m_noiseData.scale;
 
             for (float y = 0; y < height; ++y)
                 for (float x = 0; x < width; ++x)
-                    noise[(int)y * width + (int)x] = OctavePerlinNoise(xOffset + x / width * m_noiseData.scale, yOffset + y / height * m_noiseData.scale);
+                    noise[(int)y * width + (int)x] = OctavePerlinNoise(xFixedOffset + x / (width - 1) * m_noiseData.scale, yFixedOffset + y / (height - 1) * m_noiseData.scale);
 
             return noise;
         }

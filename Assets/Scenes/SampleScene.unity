@@ -745,7 +745,7 @@ MonoBehaviour:
   m_chunkSize: 16
   m_chunkHeight: 128
   m_noiseData: {fileID: 11400000, guid: 47f139267ae20be4f97fb7c0f1b6e8a8, type: 2}
-  m_renderDistance: 16
+  m_renderDistance: 8
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

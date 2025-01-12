@@ -22,13 +22,13 @@ namespace Core.BiomeGeneration
 
             Vector3 CreateVertex(in int x, in int y)
             {
-                float height = noise[x * m_chunkSize + y] * m_maxHeight;
+                float height = noise[y * m_chunkSize + x] * m_maxHeight;
                 return new Vector3(x, height, y);
             }
 
-            for (int x = 0; x < m_chunkSize - 1; ++x)
+            for (int y = 0; y < m_chunkSize - 1; ++y)
             {
-                for (int y = 0; y < m_chunkSize - 1; ++y)
+                for (int x = 0; x < m_chunkSize - 1; ++x)
                 {
                     Vector3[] vertices = new Vector3[4]
                     {

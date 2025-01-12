@@ -19,7 +19,7 @@ namespace Core.BiomeGeneration
         public void CreateTerrain()
         {
             Vector3Int worldPosition = new Vector3Int((int)transform.position.x, (int)transform.position.y, (int)transform.position.z);
-            List<ChunkData> chunkDatas =  m_terrainGeneration.GenerateTerrain(worldPosition, m_renderDistance);
+            List<ChunkData> chunkDatas = m_terrainGeneration.GenerateTerrain(worldPosition, m_renderDistance);
 
             foreach (ChunkData chunkData in chunkDatas)
                 RenderChunk(chunkData);

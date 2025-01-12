@@ -18,15 +18,15 @@ namespace Core.BiomeGeneration
         {
             List<ChunkData> meshDatas = new List<ChunkData>();
 
-            int xStart = startPosition.x - m_chunkSize * distanceFromStart / 2;
-            int xEnd = startPosition.x + m_chunkSize * distanceFromStart / 2;
+            int xStart = startPosition.x - m_chunkSize * distanceFromStart;
+            int xEnd = startPosition.x + m_chunkSize * distanceFromStart;
 
-            int zStart = startPosition.z - m_chunkSize * distanceFromStart / 2;
-            int zEnd = startPosition.z + m_chunkSize * distanceFromStart / 2;
+            int zStart = startPosition.z - m_chunkSize * distanceFromStart;
+            int zEnd = startPosition.z + m_chunkSize * distanceFromStart;
 
-            for (int x = xStart; x < xEnd; x += m_chunkSize)
+            for (int x = xStart; x < xEnd; x += m_chunkSize - 1)
             {
-                for (int z = zStart; z < zEnd; z += m_chunkSize)
+                for (int z = zStart; z < zEnd; z += m_chunkSize - 1)
                 {
                     Vector3Int worldPosition = new Vector3Int(x, startPosition.y, z);
                     ChunkData chunkData = m_chunkGeneration.Generate(worldPosition);
