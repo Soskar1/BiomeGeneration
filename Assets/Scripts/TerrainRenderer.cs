@@ -3,9 +3,9 @@ using System.Collections.Generic;
 
 namespace Core.BiomeGeneration
 {
-    public class TerrainVisualization : MonoBehaviour
+    public class TerrainRenderer : MonoBehaviour
     {
-        [SerializeField] private GameObject m_chunkPrefab;
+        [SerializeField] private ChunkRenderer m_chunkPrefab;
         [SerializeField] private int m_chunkSize;
         [SerializeField] private int m_chunkHeight;
         [SerializeField] private NoiseData m_noiseData;
@@ -22,20 +22,11 @@ namespace Core.BiomeGeneration
             List<ChunkData> chunkDatas = m_terrainGeneration.GenerateTerrain(worldPosition, m_renderDistance);
 
             foreach (ChunkData chunkData in chunkDatas)
-                RenderChunk(chunkData);
-        }
-
-        private void RenderChunk(in ChunkData chunkData)
-        {
-            GameObject chunkInstance = Instantiate(m_chunkPrefab, chunkData.WorldPosition, Quaternion.identity);
-            chunkInstance.transform.parent = transform;
-
-            Mesh mesh = new Mesh();
-            mesh.vertices = chunkData.MeshData.Vertices.ToArray();
-            mesh.triangles = chunkData.MeshData.Indices.ToArray();
-            mesh.RecalculateNormals();
-
-            chunkInstance.GetComponent<MeshFilter>().mesh = mesh;
+            {
+                ChunkRenderer chunkInstance = Instantiate(m_chunkPrefab, chunkData.WorldPosition, Quaternion.identity);
+                chunkInstance.transform.parent = transform;
+                chunkInstance.Render(chunkData);
+            }
         }
     }
 }

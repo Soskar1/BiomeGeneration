@@ -741,11 +741,11 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d76b0a9903bd2aa4198b15c88c29eafa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_chunkPrefab: {fileID: 3610756403518132208, guid: a53a63fecd1d2cf4da6b4d7bdcafb4bc, type: 3}
+  m_chunkPrefab: {fileID: 42393449040795158, guid: a53a63fecd1d2cf4da6b4d7bdcafb4bc, type: 3}
   m_chunkSize: 16
   m_chunkHeight: 128
   m_noiseData: {fileID: 11400000, guid: 47f139267ae20be4f97fb7c0f1b6e8a8, type: 2}
-  m_renderDistance: 8
+  m_renderDistance: 16
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0
