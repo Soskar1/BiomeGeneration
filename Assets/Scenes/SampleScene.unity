@@ -743,9 +743,25 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_chunkPrefab: {fileID: 42393449040795158, guid: a53a63fecd1d2cf4da6b4d7bdcafb4bc, type: 3}
   m_chunkSize: 16
-  m_chunkHeight: 128
+  m_chunkHeight: 256
   m_noiseData: {fileID: 11400000, guid: 47f139267ae20be4f97fb7c0f1b6e8a8, type: 2}
-  m_renderDistance: 16
+  m_renderDistance: 64
+  m_regions:
+  - name: Water
+    noiseValue: 0
+    color: {r: 0, g: 0.37863922, b: 1, a: 1}
+  - name: Sand
+    noiseValue: 0.27
+    color: {r: 1, g: 0.71534777, b: 0, a: 1}
+  - name: Land
+    noiseValue: 0.3
+    color: {r: 0.06437285, g: 0.5471698, b: 0, a: 1}
+  - name: Mountain
+    noiseValue: 0.75
+    color: {r: 0.4339623, g: 0.4339623, b: 0.4339623, a: 1}
+  - name: Snow
+    noiseValue: 1
+    color: {r: 1, g: 1, b: 1, a: 1}
 --- !u!1660057539 &9223372036854775807
 SceneRoots:
   m_ObjectHideFlags: 0

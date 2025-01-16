@@ -10,10 +10,11 @@ namespace Core.BiomeGeneration
         [SerializeField] private int m_chunkHeight;
         [SerializeField] private NoiseData m_noiseData;
         [SerializeField] private int m_renderDistance;
+        [SerializeField] private List<Region> m_regions;
 
         private TerrainGeneration m_terrainGeneration;
 
-        private void Awake() => m_terrainGeneration = new TerrainGeneration(m_chunkSize, m_chunkHeight, m_noiseData);
+        private void Awake() => m_terrainGeneration = new TerrainGeneration(m_chunkSize, m_chunkHeight, m_noiseData, m_regions);
 
         [ContextMenu("Create Terrain")]
         public void CreateTerrain()

@@ -8,10 +8,10 @@ namespace Core.BiomeGeneration
         private readonly int m_chunkSize;
         private readonly ChunkGeneration m_chunkGeneration;
         
-        public TerrainGeneration(in int chunkSize, in int maxHeight, in NoiseData noiseData) 
+        public TerrainGeneration(in int chunkSize, in int maxHeight, in NoiseData noiseData, in List<Region> regions) 
         {
             m_chunkSize = chunkSize;
-            m_chunkGeneration = new ChunkGeneration(chunkSize, maxHeight, noiseData);
+            m_chunkGeneration = new ChunkGeneration(chunkSize, maxHeight, noiseData, regions);
         }
 
         public List<ChunkData> GenerateTerrain(in Vector3Int startPosition, in int distanceFromStart)
@@ -36,5 +36,13 @@ namespace Core.BiomeGeneration
 
             return meshDatas;
         }
+    }
+
+    [System.Serializable]
+    public struct Region
+    {
+        public string name;
+        [Range(0, 1)] public float noiseValue;
+        public Color color;
     }
 }

@@ -6,11 +6,13 @@ namespace Core.BiomeGeneration
     {
         public MeshData MeshData { get; private set; }
         public Vector3Int WorldPosition { get; private set;}
+        public int ChunkSize { get; private set; }
 
-        public ChunkData(MeshData meshData, Vector3Int worldPosition)
+        public ChunkData(MeshData meshData, Vector3Int worldPosition, int chunkSize)
         {
             MeshData = meshData;
             WorldPosition = worldPosition;
+            ChunkSize = chunkSize;
         }
     }
 }

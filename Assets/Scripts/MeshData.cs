@@ -7,17 +7,22 @@ namespace Core.BiomeGeneration
     {
         public List<Vector3> Vertices { get; private set; }
         public List<int> Indices { get; private set; }
+        public List<Color> Colors { get; private set; }
 
         public MeshData()
         {
             Vertices = new List<Vector3>();
             Indices = new List<int>();
+            Colors = new List<Color>();
         }
 
-        public void AddQuad(in Vector3[] quadVertices)
+        public void AddQuad(in Quad quad)
         {
-            foreach (var vertex in quadVertices)
+            foreach (Vector3 vertex in quad.vertices)
                 Vertices.Add(vertex);
+            
+            foreach (Color color in quad.colors)
+                Colors.Add(color);
 
             AddQuadTriangles();
         }
@@ -31,6 +36,24 @@ namespace Core.BiomeGeneration
             Indices.Add(Vertices.Count - 4);
             Indices.Add(Vertices.Count - 2);
             Indices.Add(Vertices.Count - 1);
+        }
+    }
+
+    public readonly struct Quad
+    {
+        public readonly Vector3[] vertices;
+        public readonly Color[] colors;
+
+        public Quad(in Vector3[] vertices, in Color[] colors)
+        {
+            this.vertices = vertices;
+            this.colors = colors;
+        }
+
+        public Quad(in Vector3[] vertices)
+        {
+            this.vertices = vertices;
+            colors = null;
         }
     }
 }
