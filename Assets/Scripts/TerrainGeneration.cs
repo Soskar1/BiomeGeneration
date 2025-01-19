@@ -17,7 +17,7 @@ namespace Core.BiomeGeneration
 
         public List<ChunkData> GenerateTerrain(in Vector3Int startPosition, in int distanceFromStart)
         {
-            List<ChunkData> meshDatas = new List<ChunkData>();
+            List<ChunkData> chunkDatas = new List<ChunkData>();
 
             int xStart = startPosition.x - m_chunkSize * distanceFromStart;
             int xEnd = startPosition.x + m_chunkSize * distanceFromStart;
@@ -42,11 +42,11 @@ namespace Core.BiomeGeneration
                         m_cachedChunks.Add(worldPosition, chunkData);
                     }
                     
-                    meshDatas.Add(chunkData);
+                    chunkDatas.Add(chunkData);
                 }
             }
 
-            return meshDatas;
+            return chunkDatas;
         }
     }
 
