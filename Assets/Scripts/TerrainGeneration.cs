@@ -7,6 +7,7 @@ namespace Core.BiomeGeneration
     {
         private readonly int m_chunkSize;
         private readonly ChunkGeneration m_chunkGeneration;
+        private readonly Dictionary<Vector3Int, ChunkData> m_cachedChunks;
         
         public TerrainGeneration(in int chunkSize, in int maxHeight, in NoiseData noiseData, in List<Region> regions) 
         {
@@ -29,7 +30,18 @@ namespace Core.BiomeGeneration
                 for (int z = zStart; z < zEnd; z += m_chunkSize - 1)
                 {
                     Vector3Int worldPosition = new Vector3Int(x, startPosition.y, z);
-                    ChunkData chunkData = m_chunkGeneration.Generate(worldPosition);
+                    ChunkData chunkData;
+                    
+                    if (m_cachedChunks.ContainsKey(worldPosition))
+                    {
+                        chunkData = m_cachedChunks[worldPosition];
+                    }
+                    else
+                    {
+                        chunkData = m_chunkGeneration.Generate(worldPosition);
+                        m_cachedChunks.Add(worldPosition, chunkData);
+                    }
+                    
                     meshDatas.Add(chunkData);
                 }
             }
